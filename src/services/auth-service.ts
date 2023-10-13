@@ -1,4 +1,4 @@
-import { BAD_REQUEST, NOT_FOUND } from "http-status";
+import { CONFLICT, NOT_FOUND, UNAUTHORIZED } from "http-status";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AuthEntity } from "../../protocols";
@@ -32,7 +32,7 @@ async function signIn(email: string, password: string) {
 
   // Se as senhas não coincidem, lança um erro "BAD_REQUEST"
   if (!correctPassword) {
-    throw BAD_REQUEST;
+    throw UNAUTHORIZED;
   }
 
   // Cria um token de sessão para o usuário
@@ -46,7 +46,7 @@ async function emailExists(email: string) {
 
   // Se o email já existe, lança um erro "BAD_REQUEST"
   if (user) {
-    throw BAD_REQUEST;
+    throw CONFLICT;
   }
   return user;
 }

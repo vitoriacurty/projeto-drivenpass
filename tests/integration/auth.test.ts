@@ -26,7 +26,7 @@ describe("POST /signin", () => {
     });
     it('should respond with status 400 if email and/or password is invalid ', async () => {
         const response = await server.post('/signin');
-        expect(response.status).toBe(httpStatus.BAD_REQUEST);
+        expect(response.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
     });
 
     it('should respond with status 404 if user email does not exist', async () => {
@@ -51,8 +51,8 @@ describe("POST /signin", () => {
             email: 'emailcorreto@email.com',
             password: faker.internet.password({ length: 10 }),
         }
-        await server.post('/register').send({ email: user.email, password: user.password });
-        const response = await server.post('/login').send({ email: user.email, password: user.password });
+        await server.post('/signup').send({ email: user.email, password: user.password });
+        const response = await server.post('/signin').send({ email: user.email, password: user.password });
         expect(response.status).toBe(httpStatus.OK);
     });
 });
