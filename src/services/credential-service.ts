@@ -2,7 +2,7 @@
 import { CredentialPost } from "../../protocols";
 import Cryptr from "cryptr";
 import { credentialRepository } from "./../repositories/credential-repository";
-import { CONFLICT } from "http-status";
+import { CONFLICT, UNAUTHORIZED } from "http-status";
 
 const cryptr = new Cryptr(process.env.CRYPTR);
 
@@ -25,7 +25,7 @@ async function createCredential(credential: CredentialPost) {
             userId,
         });
     } catch (err) {
-        throw err;
+        throw UNAUTHORIZED;
     }
 }
 

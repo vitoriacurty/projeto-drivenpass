@@ -22,7 +22,7 @@ export async function createCredential(req: Request, res: Response) {
     return res.sendStatus(httpStatus.OK);
   } catch (err) {
     // Em caso de erro, responde com um status 403 
-    return res.sendStatus(httpStatus.FORBIDDEN);
+    return res.status(httpStatus.UNAUTHORIZED).send("Erro ao criar a credencial");
   }
 }
 

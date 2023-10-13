@@ -10,7 +10,7 @@
     "test:load-envs": "dotenv -e .env.test",
     "test:coverage": "npm run test:load-envs -- jest -- --coverage --runInBand",
     "test:migration:run": "npm run test:load-envs prisma migrate deploy",
-    "test": "npm run test:load-envs jest",
+    "test": "npm run test:load-envs jest --coverage",
     "dev": "cross-env NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/app.ts' -e ts"
   },
   "repository": {
