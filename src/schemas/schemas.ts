@@ -9,7 +9,7 @@ export const authSchema = joi.object<AuthEntity>({
 
 // Define um tipo de entrada para credenciais excluindo o campo "id"
 type CredentialInput = Omit<Credential, "id">
-export type CredentialUser = Omit<Credential, 'id'>;
+// export type CredentialUser = Omit<Credential, 'id'>;
 
 export const credentialSchema = joi.object<CredentialInput>({
   title: joi.string().required(),
