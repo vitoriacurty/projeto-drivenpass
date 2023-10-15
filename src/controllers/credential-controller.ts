@@ -9,6 +9,12 @@ export async function createCredential(req: Request, res: Response) {
   const { url, username, password, title } = req.body as CredentialEntity;
   const userId = res.locals.user;
 
+   // Verifique se o corpo da solicitação está ausente
+   if (!url || !username || !password || !title) {
+    // Se o corpo da solicitação estiver ausente, retorne 401 (UNAUTHORIZED)
+    return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized - Body is missing");
+  }
+  
   try {
     // Chama o service para criar uma nova credencial
     const credential = await credentialService.createCredential({
