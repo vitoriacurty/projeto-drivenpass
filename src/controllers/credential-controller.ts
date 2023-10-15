@@ -11,7 +11,7 @@ export async function createCredential(req: Request, res: Response) {
 
   try {
     // Chama o service para criar uma nova credencial
-    await credentialService.createCredential({
+    const credential = await credentialService.createCredential({
       url,
       username,
       password,
@@ -19,7 +19,7 @@ export async function createCredential(req: Request, res: Response) {
       userId,
     });
      // Responde com um status 200 (OK) após a criação bem-sucedida
-    return res.sendStatus(httpStatus.OK);
+    return res.status(httpStatus.CREATED).send(credential);
   } catch (err) {
     // Em caso de erro, responde com um status 403 
     return res.status(httpStatus.UNAUTHORIZED).send("Erro ao criar a credencial");
