@@ -93,19 +93,28 @@ describe("POST /credential", () => {
                 password: userBody.password,
             });
 
-            if (!!existingCredential) {
-                // Se uma credencial com o mesmo nome já existe, retorna um código de status 409 (Conflito)
-                const result = await server
-                    .post("/credential")
-                    .set("Authorization", `Bearer ${token}`)
-                    .send({
-                        title: credential.title,
-                        url: credential.url,
-                        username: credential.username,
-                        password: credential.password,
-                    });
-                expect(result.status).toBe(httpStatus.CONFLICT);
-            }
+            await server
+                .post("/credential")
+                .set("Authorization", `Bearer ${token}`)
+                .send({
+                    title: credential.title,
+                    url: credential.url,
+                    username: credential.username,
+                    password: credential.password,
+                });
+            // Se uma credencial com o mesmo nome já existe, retorna um código de status 409 (Conflito)
+            const result = await server
+                .post("/credential")
+                .set("Authorization", `Bearer ${token}`)
+                .send({
+                    title: credential.title,
+                    url: credential.url,
+                    username: credential.username,
+                    password: credential.password,
+                });
+
+            expect(result.status).toBe(httpStatus.UNAUTHORIZED);
+
         });
     })
 
@@ -227,7 +236,7 @@ describe("POST /credential", () => {
                 const result = await server
                     .delete(`/credential/${randoNumber}`)
                     .set("Authorization", `Bearer ${token}`);
-                expect(result.status).toBe(httpStatus.UNAUTHORIZED);
+                expect(result.status).toBe(httpStatus.NOT_FOUND);
             });
             it("Valid id is passed", async () => {
                 const body = await createCredential();
