@@ -16,7 +16,7 @@ async function findUser(title: string) {
 }
 
 // cria uma nova credencial
-async function createCredential(credential: CredentialUser) {
+async function createUserCredential(credential: CredentialUser) {
     // Cria um novo registro de credencial com os dados fornecidos
     return prisma.credential.create({
         data: {
@@ -43,21 +43,23 @@ async function getCredentials(userId: number) {
 
 // confirma uma credencial com base no ID
 async function confirmUser(credentailId: number) {
-    const user = await prisma.credential.findFirst({
+    console.log("confirmUser");
+    
+    const credencial = await prisma.credential.findFirst({
         where: {
             id: credentailId
         }
     })
 
-    return user
+    return credencial
 }
 
 // exclui uma credencial com base no ID
-async function deleteCredential(credentialId: number) {
+async function deleteCredential(credentailId: number) {
     // Exclui a credencial do banco de dados com base no ID fornecido
     const deleting = await prisma.credential.delete({
         where: {
-            id: credentialId
+            id: credentailId
         }
     })
 
@@ -66,7 +68,7 @@ async function deleteCredential(credentialId: number) {
 
 export const credentialRepository = {
     findUser,
-    createCredential,
+    createUserCredential,
     getCredentials,
     confirmUser,
     deleteCredential

@@ -47,12 +47,14 @@ export async function getCredentials(req: Request, res: Response) {
 
 // obter uma credencial específica com base no ID
 export async function getCredentialById(req: Request, res: Response) {
-  const { credentialId } = req.params;
+  const { id } = req.params;
   const userId = res.locals.user;
   try {
+
+    console.log(userId);
     // Chama o service para encontrar uma credencial com base no ID e usuário
     const credential = await credentialService.findCredentialById(
-      parseInt(credentialId),
+      parseInt(id),
       userId
     );
     return res.status(httpStatus.OK).send(credential);
@@ -63,12 +65,18 @@ export async function getCredentialById(req: Request, res: Response) {
 
 // excluir uma credencial com base no ID
 export async function deleteCredential(req: Request, res: Response) {
-  const { credentialId } = req.params;
+  const { id } = req.params;
+  console.log("chegou aqui");
   const userId = res.locals.user;
 
+  
   try {
     // Chama o service para excluir uma credencial com base no ID e usuário
-    await credentialService.deleteCredential(parseInt(credentialId), userId)
+    //console.log(userId);
+    console.log(userId);
+    
+    
+    await credentialService.deleteCredential(parseInt(id), userId)
     return res.sendStatus(httpStatus.NO_CONTENT)
   } catch (err) {
     res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);

@@ -1,4 +1,3 @@
-
 import { CredentialPost } from "../../protocols";
 import Cryptr from "cryptr";
 import { credentialRepository } from "./../repositories/credential-repository";
@@ -17,7 +16,7 @@ async function createCredential(credential: CredentialPost) {
         const encryptedPassword = await cryptPass(password);
 
         // Cria a nova credencial no repositório
-        await credentialRepository.createCredential({
+        return await credentialRepository.createUserCredential({
             url,
             username,
             title,
@@ -89,12 +88,14 @@ async function findCredentialById(credentialId: number, userId: number) {
 
 // excluir uma credencial
 async function deleteCredential(credentialId: number, userId: number) {
+    
     const confirmUser = await credentialRepository.confirmUser(credentialId);
     // Verifica se o usuário que fez a solicitação é o proprietário da credencial
     if (confirmUser.userId !== userId) {
         throw CONFLICT;
     }
     // Exclui a credencial do repositório
+    
     await credentialRepository.deleteCredential(credentialId);
 }
 

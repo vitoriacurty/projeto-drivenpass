@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 const cryptr = new Cryptr(process.env.CRYPTR);
 
-export async function createCredential(userId: number) {
+export async function createUserCredential(userId: number) {
     const password = cryptr.encrypt(faker.internet.password({ length: 10 }))
     return prisma.credential.create({
         data: {
