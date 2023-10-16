@@ -38,3 +38,26 @@
         - Todas as credenciais retornadas devem aparecer com a senha descriptografada.
     - Deleção de credenciais
         - Aplicação deve permitir que uma credencial seja deletada (dado o seu id). Se o id não existir ou pertencer a credencial de outra pessoa, a aplicação deve avisar.
+
+       # How to run for development
+ - Clone este repositório
+
+ - Instale todas as dependências 
+    $ npm i
+
+ - Crie um banco de dados PostgreSQL com o nome que desejar.
+
+ - Configure o arquivo .env usando o arquivo .env.example
+
+ - Execute todas as migrações do Prisma.
+    $ npx prisma migrate dev
+
+ - Execute o back-end em um ambiente de desenvolvimento:
+# development
+$ npm run dev
+
+Como executar os testes:
+
+$ npm run test
+# test coverage
+$ npm run test:coverage

@@ -53,11 +53,11 @@ async function confirmUser(credentailId: number) {
 }
 
 // exclui uma credencial com base no ID
-async function deleteCredential(credentailId: number) {
+async function deleteCredential(credentialId: number) {
     // Exclui a credencial do banco de dados com base no ID fornecido
     const deleting = await prisma.credential.delete({
         where: {
-            id: credentailId
+            id: credentialId
         }
     })
 
